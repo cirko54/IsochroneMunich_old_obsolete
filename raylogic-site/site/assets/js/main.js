@@ -110,13 +110,15 @@
       const el = e.target;
       const target = Number(el.dataset.count);
       const suffix = el.dataset.suffix ?? "";
-      if (reduceMotion) { el.textContent = fmt.format(target) + suffix; continue; }
+      const format = "plain" in el.dataset ? String : (n) => fmt.format(n);
+      if (reduceMotion) { el.textContent = format(target) + suffix; continue; }
+      const from = "plain" in el.dataset ? target - 35 : 0;
       const t0 = performance.now();
       const dur = 1600;
       const step = (t) => {
         const p = Math.min(1, (t - t0) / dur);
         const eased = 1 - Math.pow(1 - p, 4);
-        el.textContent = fmt.format(Math.round(target * eased)) + suffix;
+        el.textContent = format(Math.round(from + (target - from) * eased)) + suffix;
         if (p < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
