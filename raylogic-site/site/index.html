@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>RayLogic</title>
+  <!-- TODO(carrd): Meta-Beschreibung aus Carrd übernehmen (Carrd → Settings → Meta) -->
+  <meta name="description" content="RayLogic – Platzhalter-Beschreibung, wird aus der Carrd-Seite übernommen.">
+  <meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)">
+  <meta property="og:title" content="RayLogic">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/hero.js" defer></script>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="RayLogic – zum Seitenanfang">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="4.5" />
+        <path d="M16 2v7M16 23v7M2 16h7M23 16h7M6.1 6.1l4.95 4.95M20.95 20.95l4.95 4.95M6.1 25.9l4.95-4.95M20.95 11.05l4.95-4.95" />
+      </svg>
+      <span>Ray<b>Logic</b></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav" data-nav-toggle>
+      <span class="sr-only">Menü</span><i></i><i></i>
+    </button>
+    <nav id="nav" class="nav" data-nav>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#ansatz">Ansatz</a>
+      <a href="#ueber">Über uns</a>
+      <a href="#kontakt" class="nav-cta">Kontakt</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+      <canvas class="hero-canvas" data-hero-canvas aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <p class="eyebrow reveal">
+          <span class="dot"></span>
+          <!-- TODO(carrd) -->Platzhalter · Kategorie / Claim-Zeile
+        </p>
+        <!-- TODO(carrd): Headline ggf. durch Claim aus Carrd ersetzen -->
+        <h1 class="hero-title reveal" data-split>
+          Präzision, <em>die sich berechnen lässt.</em>
+        </h1>
+        <p class="lead reveal">
+          <!-- TODO(carrd): Einleitungstext aus Carrd -->
+          Platzhalter für den Einleitungstext der bisherigen Carrd-Seite. Zwei bis drei Sätze: wer RayLogic ist, für wen, mit welchem Nutzen.
+        </p>
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href="#kontakt" data-magnetic>Gespräch vereinbaren</a>
+          <a class="btn btn-ghost" href="#leistungen">Leistungen ansehen</a>
+        </div>
+      </div>
+      <div class="hero-legend reveal" aria-hidden="true">
+        <span class="iso-95">95 %</span>
+        <span class="iso-80">80 %</span>
+        <span class="iso-50">50 %</span>
+        <span class="iso-20">20 %</span>
+      </div>
+      <a class="scroll-hint" href="#leistungen" aria-label="Weiter nach unten"><span></span></a>
+    </section>
+
+    <!-- ========== KENNZAHLEN ========== -->
+    <section class="stats" aria-label="Kennzahlen">
+      <!-- TODO(carrd): echte Kennzahlen eintragen oder Abschnitt entfernen -->
+      <div class="stat reveal"><b data-count="10" data-suffix="+">0</b><span>Platzhalter Kennzahl</span></div>
+      <div class="stat reveal"><b data-count="100" data-suffix=" %">0</b><span>Platzhalter Kennzahl</span></div>
+      <div class="stat reveal"><b data-count="24" data-suffix=" h">0</b><span>Platzhalter Kennzahl</span></div>
+      <div class="stat reveal"><b data-count="1">0</b><span>Platzhalter Kennzahl</span></div>
+    </section>
+
+    <!-- ========== LEISTUNGEN ========== -->
+    <section id="leistungen" class="section">
+      <header class="section-head">
+        <p class="kicker reveal">01 — Leistungen</p>
+        <h2 class="reveal">Was wir tun</h2>
+        <p class="reveal muted"><!-- TODO(carrd) -->Platzhalter für den Untertitel des Leistungsbereichs.</p>
+      </header>
+      <div class="cards" data-stagger>
+        <!-- TODO(carrd): Leistungen 1:1 aus Carrd übertragen; Karten nach Bedarf ergänzen/entfernen -->
+        <article class="card reveal" data-spotlight>
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="10.5"/></svg>
+          </div>
+          <h3>Leistung 1</h3>
+          <p>Platzhalter-Beschreibung. Text aus der Carrd-Seite übernehmen.</p>
+        </article>
+        <article class="card reveal" data-spotlight>
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+          </div>
+          <h3>Leistung 2</h3>
+          <p>Platzhalter-Beschreibung. Text aus der Carrd-Seite übernehmen.</p>
+        </article>
+        <article class="card reveal" data-spotlight>
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+          </div>
+          <h3>Leistung 3</h3>
+          <p>Platzhalter-Beschreibung. Text aus der Carrd-Seite übernehmen.</p>
+        </article>
+        <article class="card reveal" data-spotlight>
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+          </div>
+          <h3>Leistung 4</h3>
+          <p>Platzhalter-Beschreibung. Text aus der Carrd-Seite übernehmen.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== ANSATZ / PROZESS ========== -->
+    <section id="ansatz" class="section section-alt">
+      <header class="section-head">
+        <p class="kicker reveal">02 — Ansatz</p>
+        <h2 class="reveal">Von der Frage zur Lösung</h2>
+        <p class="reveal muted"><!-- TODO(carrd) -->Platzhalter. Ablauf einer Zusammenarbeit in wenigen Schritten.</p>
+      </header>
+      <ol class="steps" data-steps>
+        <li class="step reveal"><span class="step-n">01</span><div><h3>Analyse</h3><p>Platzhalter-Text.</p></div></li>
+        <li class="step reveal"><span class="step-n">02</span><div><h3>Konzept</h3><p>Platzhalter-Text.</p></div></li>
+        <li class="step reveal"><span class="step-n">03</span><div><h3>Umsetzung</h3><p>Platzhalter-Text.</p></div></li>
+        <li class="step reveal"><span class="step-n">04</span><div><h3>Begleitung</h3><p>Platzhalter-Text.</p></div></li>
+      </ol>
+    </section>
+
+    <!-- ========== ÜBER UNS ========== -->
+    <section id="ueber" class="section">
+      <div class="about">
+        <div class="about-media reveal">
+          <!-- TODO(carrd): Foto aus Carrd nach assets/img/ legen und hier einbinden:
+               <img src="assets/img/portrait.webp" alt="…" width="800" height="1000" loading="lazy" decoding="async"> -->
+          <div class="portrait-placeholder" aria-hidden="true"><span>Foto</span></div>
+        </div>
+        <div class="about-text">
+          <p class="kicker reveal">03 — Über uns</p>
+          <h2 class="reveal">Medizin trifft Informatik</h2>
+          <p class="reveal"><!-- TODO(carrd) -->Platzhalter für den Über-uns-Text: Hintergrund, Qualifikation, Motivation.</p>
+          <p class="reveal muted"><!-- TODO(carrd) -->Zweiter Absatz, optional.</p>
+          <ul class="tags reveal">
+            <li>Platzhalter</li><li>Schlagwort</li><li>Kompetenz</li><li>Technologie</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== KONTAKT ========== -->
+    <section id="kontakt" class="section contact">
+      <div class="contact-card reveal" data-spotlight>
+        <p class="kicker">04 — Kontakt</p>
+        <h2>Lassen Sie uns sprechen.</h2>
+        <p class="muted"><!-- TODO(carrd) -->Platzhalter für den Kontakt-Teaser.</p>
+        <div class="contact-actions">
+          <!-- TODO(carrd): echte Adresse eintragen -->
+          <a class="btn btn-primary btn-lg" href="mailto:kontakt@example.org" data-magnetic>kontakt@example.org</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© <span data-year></span> RayLogic</span>
+    <nav>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+  </footer>
+</body>
+</html>
