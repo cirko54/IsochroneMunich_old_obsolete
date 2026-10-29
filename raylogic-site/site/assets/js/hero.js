@@ -37,7 +37,7 @@
       line: get("--line"),
       muted: get("--muted"),
       accent: get("--accent"),
-      light: matchMedia("(prefers-color-scheme: light)").matches,
+      light: cs.colorScheme.trim() === "light",
     };
   };
 

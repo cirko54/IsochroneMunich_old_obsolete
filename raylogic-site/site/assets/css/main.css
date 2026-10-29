@@ -73,6 +73,23 @@
   }
 }
 
+:root[data-theme="light"] {
+  --bg: #f6f7fb;
+  --bg-2: #eef1f7;
+  --surface: rgb(10 20 40 / 0.035);
+  --surface-2: rgb(10 20 40 / 0.06);
+  --line: rgb(10 20 40 / 0.1);
+  --text: #0d1422;
+  --muted: #586174;
+  --accent: #0aa58d;
+  --accent-2: #3463e0;
+  --accent-ink: #ffffff;
+  --iso-50: #0aa58d;
+  --iso-20: #3463e0;
+  --shadow: 0 20px 50px -25px rgb(20 30 60 / 0.35);
+  color-scheme: light;
+}
+
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html {
