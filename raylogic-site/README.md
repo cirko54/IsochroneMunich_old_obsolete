@@ -63,7 +63,7 @@ Updates: Dateien in `site/` ändern → `make deploy NAS=…`. Kein Container-Ne
 
 ## Technik / Design
 
-- Hero: Canvas-Animation einer rotierenden Mehrfeld-Bestrahlung (9 Felder, VMAT-artig) mit live berechneter Dosisverteilung und Isodosen 20/50/80/95 % per Marching Squares; Zielvolumen-Kontur „atmet“ über winkelabhängige Feldbreiten; folgt leicht dem Mauszeiger. Pausiert außerhalb des Viewports und in Hintergrund-Tabs.
+- Hero: Canvas-Animation eines Patientenpfads als kleine Warteschlangen-Simulation (Anmeldung → Diagnostik → Befundung → Therapie → Nachsorge). Im Ist-Ablauf verschlungene Wege und ein Engpass mit wachsender Schlange, im optimierten Ablauf glätten sich die Wege und die Schlange löst sich auf; Phasen wechseln automatisch, Label unten rechts. Farben ausschließlich aus dem Logo (Navy, Royal, Himmelblau). Pausiert außerhalb des Viewports und in Hintergrund-Tabs.
 - Scroll-Reveals, wortweise Headline-Animation, Zähler, Spotlight-Karten, magnetische Buttons, Scroll-Fortschrittsbalken (CSS Scroll-Timeline mit JS-Fallback), View Transitions zwischen Seiten.
 - Hell/Dunkel nach Systemeinstellung, `prefers-reduced-motion` wird vollständig respektiert (statisches Hero-Bild, keine Bewegungen).
 - Fonts: Inter, Space Grotesk, JetBrains Mono (SIL OFL, lokal eingebunden).
