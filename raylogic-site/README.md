@@ -1,6 +1,6 @@
 # RayLogic – Website (self-hosted)
 
-Statische Seite ohne Build-Schritt und ohne externe Requests (Fonts, Skripte, Bilder liegen lokal → DSGVO-unkritisch, strikte CSP möglich). Läuft auf der Synology als nginx-Container hinter dem DSM-Reverse-Proxy, ist aber auf jeden anderen Static-Host portierbar (Ordner `site/` hochladen, fertig).
+Statische Seite ohne Build-Schritt und ohne externe Requests (Fonts, Skripte, Bilder liegen lokal → DSGVO-unkritisch, strikte CSP möglich). Läuft auf der Synology als nginx-Container hinter einem Cloudflare Tunnel, ist aber auf jeden anderen Static-Host portierbar (Ordner `site/` hochladen, fertig).
 
 ```
 raylogic-site/
@@ -40,22 +40,59 @@ make check            # listet verbleibende Platzhalter
 
 Hinweis: Nutzt die Carrd-Seite ein Kontaktformular, braucht es Ersatz (aktuell `mailto:`-Button; Formular-Backend wäre ein separater kleiner Dienst).
 
-## 2. Auf die Synology bringen
+## 2. Auf die Synology bringen (Cloudflare Tunnel)
 
-Annahme: isochronenkarte.de läuft bereits über DSM-Reverse-Proxy + Let's Encrypt, d. h. Portweiterleitung 80/443 und DDNS existieren.
+Der Anschluss hat keine feste IP; wie bei isochronenkarte.de läuft der Zugriff über einen Cloudflare Tunnel. Dadurch braucht es weder Portfreigaben noch DSM-Reverse-Proxy oder Let's-Encrypt-Zertifikate auf der NAS – TLS übernimmt Cloudflare.
 
-1. Ordner anlegen: `/volume1/docker/raylogic` (File Station).
-2. Vom Mac: `make deploy NAS=<user>@<nas-ip>` (SSH muss in DSM aktiv sein).
-3. Container Manager → Projekt → Erstellen → Pfad `/volume1/docker/raylogic/deploy` → vorhandene `docker-compose.yml` verwenden → starten. Läuft dann auf Port 8081.
-4. Systemsteuerung → Anmeldeportal → Erweitert → Reverse Proxy → Erstellen:
-   Quelle `HTTPS`, Host `raylogic.de`, Port 443, HSTS an → Ziel `HTTP`, `localhost`, Port `8081`.
-   Zweiten Eintrag für `www.raylogic.de` auf dasselbe Ziel (nginx leitet auf die Apex-Domain um).
-5. Sicherheit → Zertifikat → Hinzufügen → Let's Encrypt für `raylogic.de` mit alternativem Namen `www.raylogic.de` → unter „Einstellungen“ den beiden Reverse-Proxy-Einträgen zuordnen.
-   Let's Encrypt validiert über Port 80 – das funktioniert erst, wenn DNS schon auf die NAS zeigt (Schritt 6). Reihenfolge: Schritte 1–4, DNS umstellen, dann Zertifikat.
-6. DNS beim Registrar: die bisherigen Carrd-Einträge (A-Records auf Carrd bzw. CNAME) ersetzen durch dieselben Einträge wie bei isochronenkarte.de (A/AAAA auf die öffentliche IP oder CNAME auf den DDNS-Namen). TTL vorher auf 300 s senken, dann ist der Wechsel in Minuten durch.
-7. Danach in Carrd die Domain entfernen bzw. das Abo auslaufen lassen.
+### a) Container auf der NAS
 
-Updates: Dateien in `site/` ändern → `make deploy NAS=…`. Kein Container-Neustart nötig (Volume-Mount). Nur bei Änderungen an der nginx-Konfiguration: `RELOAD=1 make deploy NAS=…`.
+1. Per SSH auf der NAS (oder Container Manager → Projekt mit Git-Ordner):
+   ```sh
+   cd /volume1/docker
+   git clone https://github.com/cirko54/raylogic-web.git raylogic
+   ```
+   Für ein privates Repository vorher einen Deploy-Key (nur Lesen) anlegen, siehe unten.
+2. Container Manager → Projekt → Erstellen → Pfad `/volume1/docker/raylogic/deploy` → vorhandene `docker-compose.yml` → starten.
+3. Test im Heimnetz: `http://<NAS-IP>:8081`.
+
+### b) DNS von raylogic.de zu Cloudflare
+
+Cloudflare Tunnel funktioniert (im kostenlosen Tarif) nur für Domains, deren DNS bei Cloudflare liegt. Die Domain selbst bleibt bei IONOS registriert, nur die Nameserver wechseln.
+
+1. **Vorher bei IONOS alle DNS-Einträge von raylogic.de notieren** (Screenshot), vor allem MX, SPF (TXT `v=spf1 …`), DKIM/`_domainkey` und `autodiscover`. Daran hängt das Postfach fahima.sadat@ und die Weiterleitungen.
+2. Cloudflare-Dashboard → *Add a domain* → `raylogic.de` → Free. Cloudflare liest die vorhandenen Einträge ein. **Abgleichen, dass alle Mail-Einträge aus Schritt 1 übernommen wurden**, und für MX/TXT den Proxy-Status auf „DNS only“ lassen.
+3. Die alten Carrd-Einträge für `@` und `www` (A/CNAME) bei Cloudflare löschen.
+4. Bei IONOS → Domain → Nameserver → „Andere Nameserver“ → die zwei von Cloudflare genannten eintragen. Umstellung dauert Minuten bis wenige Stunden; Cloudflare meldet „Active“.
+
+### c) Hostnamen im Tunnel
+
+Cloudflare Zero Trust → Networks → Tunnels → bestehender Tunnel (isochronenkarte) → *Public Hostname* hinzufügen:
+
+| Subdomain | Domain | Service |
+|---|---|---|
+| (leer) | raylogic.de | `http://<NAS-IP>:8081` |
+| www | raylogic.de | `http://<NAS-IP>:8081` |
+
+Läuft `cloudflared` als Container mit Host-Netzwerk oder als DSM-Paket, geht statt `<NAS-IP>` auch `localhost`. Cloudflare legt die DNS-Einträge dafür automatisch an. `www` leitet nginx auf `raylogic.de` um.
+
+Empfohlen in Cloudflare unter SSL/TLS → Edge Certificates: *Always Use HTTPS* und *HSTS* einschalten.
+
+### d) Abschluss
+
+- Seite, Impressum, Mail (senden und empfangen) testen.
+- In Carrd die Domain entfernen und das Abo auslaufen lassen.
+
+### Automatische Updates
+
+`deploy/update.sh` holt neue Commits und lädt nginx nur neu, wenn sich die Konfiguration geändert hat. Im DSM-Aufgabenplaner (Benutzerdefiniertes Skript, Benutzer root, alle 10 Minuten):
+
+```sh
+/volume1/docker/raylogic/deploy/update.sh
+```
+
+Deploy-Key für das private Repository: auf der NAS `ssh-keygen -t ed25519 -f /volume1/docker/raylogic-deploy-key -N ""`, den öffentlichen Schlüssel bei GitHub unter Repository → Settings → Deploy keys (nur Lesen) eintragen und das Repo per `git clone git@github.com:cirko54/raylogic-web.git` mit `GIT_SSH_COMMAND="ssh -i /volume1/docker/raylogic-deploy-key"` klonen.
+
+Ohne Git geht es auch manuell vom Mac: `make deploy NAS=<user>@<nas-ip>` (rsync per SSH).
 
 ## Später extern hosten
 
