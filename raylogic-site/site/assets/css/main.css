@@ -20,11 +20,11 @@
 }
 
 /* ---------- Tokens ---------- */
-/* Markenfarben aus dem Logo: Navy #183f78 · Royal #2158a8 · Himmelblau #66a6f0 */
+/* Markenfarben aus der Logo-Vektordatei: Navy #003f75 · Royal #005fbb · Himmelblau #5bafff */
 :root {
-  --brand-navy: #183f78;
-  --brand-royal: #2158a8;
-  --brand-sky: #66a6f0;
+  --brand-navy: #003f75;
+  --brand-royal: #005fbb;
+  --brand-sky: #5bafff;
 
   --bg: #08111f;
   --bg-2: #0c1a2e;
@@ -33,8 +33,8 @@
   --line: rgb(140 180 240 / 0.13);
   --text: #e8eef8;
   --muted: #8d9db6;
-  --accent: #66a6f0;
-  --accent-2: #3f7fd0;
+  --accent: #5bafff;
+  --accent-2: #3b8fdc;
   --accent-ink: #061226;
 
   --radius: 18px;
@@ -57,15 +57,15 @@
   :root:not([data-theme="dark"]) {
     --bg: #f5f8fc;
     --bg-2: #eaf1f9;
-    --surface: rgb(24 63 120 / 0.04);
-    --surface-2: rgb(24 63 120 / 0.075);
-    --line: rgb(24 63 120 / 0.13);
+    --surface: rgb(0 63 117 / 0.04);
+    --surface-2: rgb(0 63 117 / 0.075);
+    --line: rgb(0 63 117 / 0.13);
     --text: #0c1a33;
     --muted: #52627b;
-    --accent: #2158a8;
-    --accent-2: #4a8ee0;
+    --accent: #005fbb;
+    --accent-2: #3b8fdc;
     --accent-ink: #ffffff;
-    --shadow: 0 20px 50px -25px rgb(24 63 120 / 0.35);
+    --shadow: 0 20px 50px -25px rgb(0 63 117 / 0.35);
     color-scheme: light;
   }
 }
@@ -73,15 +73,15 @@
 :root[data-theme="light"] {
   --bg: #f5f8fc;
   --bg-2: #eaf1f9;
-  --surface: rgb(24 63 120 / 0.04);
-  --surface-2: rgb(24 63 120 / 0.075);
-  --line: rgb(24 63 120 / 0.13);
+  --surface: rgb(0 63 117 / 0.04);
+  --surface-2: rgb(0 63 117 / 0.075);
+  --line: rgb(0 63 117 / 0.13);
   --text: #0c1a33;
   --muted: #52627b;
-  --accent: #2158a8;
-  --accent-2: #4a8ee0;
+  --accent: #005fbb;
+  --accent-2: #3b8fdc;
   --accent-ink: #ffffff;
-  --shadow: 0 20px 50px -25px rgb(24 63 120 / 0.35);
+  --shadow: 0 20px 50px -25px rgb(0 63 117 / 0.35);
   color-scheme: light;
 }
 
@@ -143,9 +143,17 @@ p { margin: 0 0 1em; }
 }
 .site-header.is-hidden { transform: translateY(-100%); }
 
-.brand { display: inline-flex; align-items: center; gap: 12px; font: 500 1.05rem var(--font-display); letter-spacing: 0.2em; color: var(--accent); }
-.brand-mark { width: auto; height: 32px; transition: transform 0.6s var(--ease-spring); }
-.brand:hover .brand-mark { transform: rotate(-6deg) scale(1.06); }
+.brand { display: inline-flex; align-items: center; }
+.brand-logo { width: auto; height: 34px; transition: transform 0.5s var(--ease-out); }
+.brand:hover .brand-logo { transform: translateY(-1px) scale(1.02); }
+/* Logo-Variante passend zum Farbschema */
+.logo-on-light { display: none; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .logo-on-light { display: block; }
+  :root:not([data-theme="dark"]) .logo-on-dark { display: none; }
+}
+:root[data-theme="light"] .logo-on-light { display: block; }
+:root[data-theme="light"] .logo-on-dark { display: none; }
 
 .nav { display: flex; gap: 4px; align-items: center; }
 .nav a {

@@ -67,3 +67,12 @@ Updates: Dateien in `site/` ändern → `make deploy NAS=…`. Kein Container-Ne
 - Scroll-Reveals, wortweise Headline-Animation, Zähler, Spotlight-Karten, magnetische Buttons, Scroll-Fortschrittsbalken (CSS Scroll-Timeline mit JS-Fallback), View Transitions zwischen Seiten.
 - Hell/Dunkel nach Systemeinstellung, `prefers-reduced-motion` wird vollständig respektiert (statisches Hero-Bild, keine Bewegungen).
 - Fonts: Inter, Space Grotesk, JetBrains Mono (SIL OFL, lokal eingebunden).
+
+## Logo-Dateien (`brand/`)
+
+Erzeugt mit `python3 tools/build_logos.py` aus `brand/RayLogic_blau_original.svg`. Jede Variante gibt es für helle und (Suffix `-dunkel`) dunkle Hintergründe:
+
+- `raylogic-horizontal` – Bildmarke links, Schriftzug in Originalgröße daneben (Website-Header, E-Mail-Signatur, Briefkopf)
+- `raylogic-vertikal` – Original-Anordnung, Schriftzug zentriert darunter
+- `raylogic-vertikal-kompakt` – Schriftzug exakt so breit wie die Bildmarke
+- `raylogic-bildmarke` – nur das R (Favicon, Social-Media-Profilbild, App-Icon)
