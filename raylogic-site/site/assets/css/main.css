@@ -390,7 +390,7 @@ p { margin: 0 0 1em; }
 .person {
   --x: 50%; --y: 50%;
   position: relative; overflow: hidden; isolation: isolate;
-  display: grid; grid-template-columns: 132px 1fr; gap: 26px; align-items: start;
+  display: grid; grid-template-columns: 150px 1fr; gap: 26px; align-items: start;
   padding: 28px; border-radius: var(--radius);
   background: var(--surface); border: 1px solid var(--line);
 }
@@ -403,7 +403,7 @@ p { margin: 0 0 1em; }
 .person-body > p:not(.role) { color: var(--muted); }
 .person h3 { font-size: 1.3rem; margin-bottom: 6px; }
 .role { font: 500 0.82rem / 1.5 var(--font-mono); color: var(--accent); margin-bottom: 16px; }
-.person-photo { width: 100%; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 14px; object-fit: cover; }
+.person-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 14px; object-fit: cover; }
 .person-initials {
   display: grid; place-items: center;
   font: 600 2rem var(--font-display); color: var(--accent); letter-spacing: -0.02em;
